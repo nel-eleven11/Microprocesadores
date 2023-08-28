@@ -8,7 +8,6 @@ Joaquín Puente 22296
 #include <iostream>
 using namespace std;
 
-
 unsigned int factorial(int n){
     unsigned int res = 1;
 
@@ -42,11 +41,9 @@ unsigned int factorial(int n){
                 
             }
         }
-
     }
     return res;
 }
-
 
 int main()
 {
