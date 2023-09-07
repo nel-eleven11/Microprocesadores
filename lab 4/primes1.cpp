@@ -137,3 +137,5 @@ bool isPrime (int number)
 		return true;  //El residuo es 1 si el numero es primo
 	}
 }
+
+//compilar con g++ -pthread -o primes1 primes1.cpp
