@@ -21,26 +21,32 @@
 //Defincion de variables: hilos, contador
 pthread_t tid[NTHREADS];					
 int counter;
+pthread_mutex_t lock;
 
 void* function(void *arg)												//subrutina de inicio: imprime inicio y fin thread
 {
-    int i; 
-	i = (int) arg;
+    pthread_mutex_lock(&lock);											//bloqueo de mutex
+    long i; 
+	i = (long) arg;
 	unsigned long j = 0;												//incialización variable utilizada para retardo
     	
 	counter += 1;
 
     printf("\n----    Job %d started    ----\n", counter);	
-	printf("    Realizado por hilo No. %d\n",i);
+	printf("    Realizado por hilo No. %ld\n",i);
 	
     for(j=0; j<(0xFFFFF);j++);											//retardo
-    printf("\n----   Job %d finished   ----\n", counter);				//indicador fin procesos de iésimo hilo
+    printf("\n----   Job %d finished   ----\n", counter);
+    pthread_mutex_unlock(&lock);			//indicador fin procesos de iésimo hilo
     pthread_exit(0);
+
+    
+    NULL;
 }
 
 int main(void)
 {
-    int i = 0;		
+    long i = 0;		
     int err;									
 
     while(i < NTHREADS)													//se crean  hilos
@@ -58,3 +64,5 @@ int main(void)
 	
     return 0;
 }
+
+//compilacion: gcc Ejercicio02.cpp -o Ejercicio02 -lpthread

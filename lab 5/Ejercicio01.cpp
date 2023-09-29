@@ -23,12 +23,15 @@ pthread_mutex_t lock;
 
 void* doSomeThing(void *arg)
 {
-     unsigned long i = 0;
+    pthread_mutex_lock(&lock);
+    unsigned long i = 0;
     counter += 1;								//incialización variable utilizada para retardo
     printf("\n Job %d started\n", counter);
 
     for(i=0; i<(0xFFFFF);i++);
     printf("\n Job %d finished\n", counter);
+
+    pthread_mutex_unlock(&lock);
 
     return NULL;
 }
@@ -56,3 +59,5 @@ int main(void)
 
     return 0;
 }
+
+//compilacion: gcc Ejercicio01.cpp -o Ejercicio01 -lpthread
